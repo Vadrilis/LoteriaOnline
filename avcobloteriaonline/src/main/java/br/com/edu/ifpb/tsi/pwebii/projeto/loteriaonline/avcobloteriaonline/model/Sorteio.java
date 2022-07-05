@@ -59,7 +59,7 @@ public class Sorteio {
     @NumberFormat(pattern = "###,###,###,##0.00")
     private BigDecimal valorPremio = BigDecimal.ZERO;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @NotNull(message = "Campo obrigatório!")
     @Future(message = "Data deve ser futura")
     /*@Temporal(TemporalType.TIMESTAMP)*/
