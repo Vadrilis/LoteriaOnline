@@ -1,12 +1,13 @@
 package br.com.edu.ifpb.tsi.pwebii.projeto.loteriaonline.avcobloteriaonline.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
+// import java.util.Collections;
+// import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -23,10 +24,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+// import javax.persistence.Temporal;
+// import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.DecimalMin;
+// import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
@@ -43,7 +44,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Sorteio {
+public class Sorteio implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,10 +52,7 @@ public class Sorteio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @DecimalMin(value = "1")
-    private Integer numeroSorteio;
-
-    private Boolean estado = false;
+    private Boolean estado = false; //true --> realizado   false --> aberto
 
     @NumberFormat(pattern = "###,###,###,##0.00")
     private BigDecimal valorPremio = BigDecimal.ZERO;
@@ -68,8 +66,8 @@ public class Sorteio {
     @ElementCollection(fetch = FetchType.LAZY)
     private Set<Integer> dezenasSorteadas= new TreeSet<Integer>();
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @OneToMany()
+    //@ElementCollection(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Aposta> apostasRealizadas = new ArrayList<Aposta>();
 
     //@ElementCollection(fetch = FetchType.LAZY)

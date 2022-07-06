@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
+// import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+// import java.util.Set;
+// import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+// import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -38,7 +38,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -55,11 +55,11 @@ public class Cliente implements Serializable{
 
     @CPF
     @NotBlank(message = "CPF é obrigatório!")
-    // @Digits(integer = 11, fraction = 0, message = "Informe um CPF válido")
+    @Digits(integer = 11, fraction = 0, message = "Informe um CPF válido")
     private String cpf;
 
-    @Lob
-    private byte[] imagem;
+    /* @Lob
+    private byte[] imagem; */
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Aposta> apostas = new ArrayList<Aposta>();
@@ -81,7 +81,7 @@ public class Cliente implements Serializable{
     private BigDecimal ganhos = BigDecimal.valueOf(0.00); 
 
     @NumberFormat(pattern = "###,###,###,##0.00")
-    private BigDecimal gastos = BigDecimal.valueOf(0.00); 
+    private BigDecimal despesas = BigDecimal.valueOf(0.00); 
 
     private boolean controlador = false;
 
