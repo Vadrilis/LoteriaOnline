@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/css/**", "/imagens/**",  "/acesso-negado", "/auth/**", "/clientes", "/fragments/**","/sorteio/**").permitAll() //TODO coloquei esse auth dps
+            .antMatchers("/css/**", "/imagens/**",  "/acesso-negado", "/auth/**", "/clientes", "/fragments/**").permitAll() 
             .antMatchers("/sorteios/").hasAnyRole("ADMIN", "CLIENTE")
             .antMatchers("/clientes/**").hasRole("ADMIN")
             .anyRequest()

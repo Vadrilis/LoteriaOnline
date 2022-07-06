@@ -30,5 +30,5 @@ public interface SorteioRepository extends JpaRepository<Sorteio, Integer>{
 
     @Query("SELECT S FROM Sorteio S JOIN FETCH S.apostasRealizadas AR JOIN FETCH AR.cliente C JOIN FETCH C.user U WHERE U.username = :USERNAME AND S.estado = 0")
     Optional<List<Sorteio>> findByUserAndByEstadoFalse(@Param("USERNAME") String username);
-
+    
 }
