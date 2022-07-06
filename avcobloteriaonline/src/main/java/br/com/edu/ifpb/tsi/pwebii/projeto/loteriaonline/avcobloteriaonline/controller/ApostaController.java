@@ -104,7 +104,8 @@ public class ApostaController {
     @RequestMapping("/minhasapostas")
 	public ModelAndView listaApostas(ModelAndView mav, Principal auth) {
 		mav.addObject("minhasApostas", apostaRepository.findByCliente(auth.getName()).get());
-		mav.addObject("meusSorteiosativos", sorteioRepository.findByUserAndByEstadoTrue(auth.getName()).get());
+		mav.addObject("meusSorteiosAtivos", sorteioRepository.findByUserAndByEstadoFalse(auth.getName()).get());
+        mav.addObject("esseUser", clienteRepository.findByUser(auth.getName()).get());
         mav.setViewName("/apostas/list");
 		return mav;
 	}
