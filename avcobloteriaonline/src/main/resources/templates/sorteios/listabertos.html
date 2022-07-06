@@ -31,9 +31,13 @@
 						Quant. de Apostas Realizadas: [[${s.apostasRealizadas.size()}]]
 					</h5>
 					<h5 th:inline="text" class="card-text">
-						Data de realização: [[${#temporals.format(s.dataHoraSorteio, 'dd-MM-yyyy HH:mm')}]]
+						Data e Hora de realização: [[${#temporals.format(s.dataHoraSorteio, 'dd/MM/yyyy HH:mm')}]]
 					</h5>
 					
+				</div>
+
+				<div sec:authorize="hasAnyRole('ADMIN')" method="get" class="card-footer border-purple-400">
+					<button th:href="@{/sorteios/sorteando/{id}(id=${s.id})}" type="button" class="btn btn-sm bg-purple-300 border-purple-400">Sortear</button>
 				</div>
 			</div>
 
