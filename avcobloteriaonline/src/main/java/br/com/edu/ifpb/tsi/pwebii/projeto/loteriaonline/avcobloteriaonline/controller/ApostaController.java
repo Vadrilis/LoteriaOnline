@@ -43,7 +43,7 @@ public class ApostaController {
 		mav.addObject("apostaNv", new Aposta());
 		mav.addObject("apostasFavoritas", apostaRepository.findByClienteAndEhFavoritaTrue(auth.getName()).get());
         mav.addObject("sorteioNv", new Sorteio());
-		mav.addObject("sorteiosAtivos", sorteioRepository.findByEstadoFalse()); // ainda não realizados
+		mav.addObject("sorteiosAtivos", sorteioRepository.findByEstadoFalse());//ainda não realizados
 		mav.addObject("aposta", aposta);
 		mav.setViewName("/apostas/form");
 
@@ -106,6 +106,7 @@ public class ApostaController {
 	public ModelAndView listaApostas(ModelAndView mav, Principal auth) {
 		mav.addObject("minhasApostas", apostaRepository.findByCliente(auth.getName()).get());
 		mav.addObject("meusSorteiosAtivos", sorteioRepository.findByUserAndByEstadoFalse(auth.getName()).get());
+        mav.addObject("meusSorteiosRealizados", sorteioRepository.findByUserAndByEstadoTrue(auth.getName()).get());
         mav.addObject("esseUser", clienteRepository.findByUser(auth.getName()).get());
         mav.setViewName("/apostas/list");
 		return mav;

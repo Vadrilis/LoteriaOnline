@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -104,13 +105,14 @@ public class SorteioController {
     
 	@RequestMapping(value = "/sorteando/{id}", method = RequestMethod.GET)
 	public ModelAndView sortearManualmente(ModelAndView mav, @PathVariable("id") Integer id) {
-		mav.addObject("sorteio", sorteioRepository.findById(id));
+		mav.addObject("sorteio", sorteioRepository.findById(id).get());
 		mav.setViewName("/sorteios/sorteiomanual");
 
 		return mav;
 	}
 
     @RequestMapping(value = "/sorteando/{id}", method = RequestMethod.POST)
+    @ResponseBody
 	@Transactional
     public ModelAndView sorteando(ModelAndView mav, RedirectAttributes attrs, @PathVariable("id") Integer id, @RequestParam(value = "cbx", required = false) String numeros) {
         Set<Integer> listaDeNumeros;
@@ -133,14 +135,22 @@ public class SorteioController {
         sorteio.setEstado(true);
 
         sorteio.encontraVencedores();
-        sorteio.entregaPremio();
-        sorteioRepository.save(sorteio);
+        if(sorteio.listaVencedores().isEmpty()){
+            mav.setViewName("redirect:/sorteios/sorteioaberto");
+            attrs.addFlashAttribute("mensagem", "O Sorteio realizado não possui vencedores");
 
-        clienteRepository.saveAll(sorteio.listaVencedores()); //update dos clientes p receberem os valores
+            sorteioRepository.save(sorteio);
 
-        mav.setViewName("redirect:/sorteios/sorteio");
-        attrs.addFlashAttribute("sucesso", "Sorteio realizado com sucesso!");
+        } else {
+            sorteio.entregaPremio();
+        
+            sorteioRepository.save(sorteio);
 
+            clienteRepository.saveAll(sorteio.listaVencedores()); //update dos clientes p receberem os valores
+
+            mav.setViewName("redirect:/sorteios/sorteio");
+            attrs.addFlashAttribute("mensagem", "Sorteio realizado com sucesso!");
+        }
 		return mav;
 	}
 
