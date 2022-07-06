@@ -57,13 +57,6 @@ public class ClienteController {
     SorteioRepository sorteioRepository;
     
 
-    @RequestMapping("/form")
-    public ModelAndView getForm(Cliente cliente, ModelAndView mav) {
-        mav.addObject("cliente", cliente);
-        mav.setViewName("clientes/form");
-        return mav;
-    }
-
     private User formaUser(String nome, String senha){
         User usuario = new User();
         usuario.setUsername(nome);
@@ -86,6 +79,13 @@ public class ClienteController {
         return authorityRepository.save(authority);
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView getForm(Cliente cliente, ModelAndView mav) {
+        mav.addObject("cliente", cliente);
+        mav.setViewName("/clientes/form");
+        return mav;
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     @Transactional
     public ModelAndView save(@Valid Cliente cliente, BindingResult validation, ModelAndView mav, RedirectAttributes attrs, @RequestParam(value="controlads", required=false) boolean controlads) {
@@ -98,6 +98,8 @@ public class ClienteController {
                 controlads = false;
             }
 
+            System.out.println(controlads);
+
             cliente.setControlador(controlads);
             String role = controlads ? "ROLE_ADMIN" : "ROLE_CLIENTE";
             User usuarin = formaUser(cliente.getLogin(), cliente.getSenha());
@@ -105,7 +107,7 @@ public class ClienteController {
 
             cliente.setUser(usuarin);
 
-            clienteRepository.save(cliente);
+            System.out.println(clienteRepository.save(cliente));
 
             mav.setViewName("redirect:/auth");
             attrs.addFlashAttribute("mensagem", "Cliente cadastrado com sucesso!");

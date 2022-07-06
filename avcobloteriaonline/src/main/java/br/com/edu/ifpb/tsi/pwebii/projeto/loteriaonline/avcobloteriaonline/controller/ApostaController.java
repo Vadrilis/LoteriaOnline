@@ -43,7 +43,7 @@ public class ApostaController {
 		mav.addObject("apostaNv", new Aposta());
 		mav.addObject("apostasFavoritas", apostaRepository.findByClienteAndEhFavoritaTrue(auth.getName()).get());
         mav.addObject("sorteioNv", new Sorteio());
-		mav.addObject("sorteiosAtivos", sorteioRepository.findByEstadoFalse());//ainda não realizados
+		mav.addObject("sorteiosAtivos", sorteioRepository.findByEstadoFalse()); // ainda não realizados
 		mav.addObject("aposta", aposta);
 		mav.setViewName("/apostas/form");
 
@@ -61,8 +61,10 @@ public class ApostaController {
             valores = valoresstring.stream().map(elemento -> Integer.valueOf(elemento)).collect(Collectors.toSet());
 
             aposta.setNumeros(valores);
+            
         } else {
             valores = new HashSet<>(aposta.getNumeros());
+            aposta.setNumeros(valores);
         }
 
         if(valores != null) {
@@ -70,7 +72,9 @@ public class ApostaController {
             if(valores.size() >= 6  && valores.size() <= 10) {
 
                 Sorteio sorteio = sorteioRepository.findById(aposta.getNumeroSorteio()).get();
+                System.out.println(sorteio.getId());
                 Cliente cliente = clienteRepository.findByUser(auth.getName()).get();
+                System.out.println(cliente.getId());
 
                 aposta.setSorteio(sorteio);
                 aposta.setCliente(cliente);
@@ -84,7 +88,7 @@ public class ApostaController {
                 sorteio.addApostaAoSorteio(aposta);
                 sorteioRepository.save(sorteio);
 
-                mav.setViewName("redirect:/apostas/aposta");
+                mav.setViewName("redirect:/apostas/minhasapostas");
                 attrs.addFlashAttribute("mensagem", "Aposta cadastrada com sucesso!");
 
                 return mav;
@@ -99,14 +103,15 @@ public class ApostaController {
 
     @RequestMapping("/minhasapostas")
 	public ModelAndView listaApostas(ModelAndView mav, Principal auth) {
-		mav.addObject("minhasApostas", apostaRepository.findByCliente(auth.getName()));
-		mav.setViewName("/apostas/aposta");
+		mav.addObject("minhasApostas", apostaRepository.findByCliente(auth.getName()).get());
+		mav.addObject("meusSorteiosativos", sorteioRepository.findByUserAndByEstadoTrue(auth.getName()).get());
+        mav.setViewName("/apostas/list");
 		return mav;
 	}
 
     @RequestMapping("/apostasfavoritas")
 	public ModelAndView listaApostasFavoritas(ModelAndView mav, Principal auth) {
-		mav.addObject("minhasApostas", apostaRepository.findByClienteAndEhFavoritaTrue(auth.getName()));
+		mav.addObject("minhasApostas", apostaRepository.findByClienteAndEhFavoritaTrue(auth.getName()).get());
 		mav.setViewName("/apostas/aposta");
 		return mav;
 	}
