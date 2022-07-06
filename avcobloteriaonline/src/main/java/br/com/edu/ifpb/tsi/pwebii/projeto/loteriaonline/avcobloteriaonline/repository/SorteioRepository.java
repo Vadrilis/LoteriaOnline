@@ -26,6 +26,6 @@ public interface SorteioRepository extends JpaRepository<Sorteio, Integer>{
     public List<Sorteio> findByEstadoFalse(); //todos os sorteios ainda nao realizados
 
     @Query("SELECT S FROM Sorteio S JOIN FETCH S.apostasRealizadas AR JOIN FETCH AR.cliente C JOIN FETCH C.user U WHERE U.username = :USERNAME AND S.estado = 1")
-    Optional<List<Sorteio>> findByUserAndByestadoTrue(@Param("USERNAME") String username);
+    Optional<List<Sorteio>> findByUserAndByEstadoTrue(@Param("USERNAME") String username);
 
 }
