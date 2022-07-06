@@ -1,0 +1,29 @@
+.logo-bar {
+    background-color: bisque;
+}
+
+.logo-font {
+    font-family: 'Fugaz One', cursive;
+    font-size: 2.3rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.7rem;
+}
+
+.login-icon {
+    font-size: 4em;
+    margin-bottom: 0px;
+    display: contents;
+}
+
+.login-title {
+    display: flow-root;
+    margin-top: 0px;
+}
+
+.negado {
+    background-color: rgb(247, 160, 160);
+    color: red;
+}
