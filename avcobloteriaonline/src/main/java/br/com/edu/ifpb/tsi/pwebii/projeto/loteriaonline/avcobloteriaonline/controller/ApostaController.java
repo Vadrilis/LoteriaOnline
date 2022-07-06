@@ -78,6 +78,7 @@ public class ApostaController {
 
                 aposta.setSorteio(sorteio);
                 aposta.setCliente(cliente);
+                aposta.setPreco(PrecoAposta.valueOfQtdDezenas(valores.size()).getPreco());
 
                 apostaRepository.save(aposta);
                 
