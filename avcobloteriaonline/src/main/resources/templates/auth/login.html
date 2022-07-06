@@ -2,7 +2,7 @@
 <html lang="pt_BR">
 
 <head>
-
+	  <div th:replace="~{fragments/bootstrap.html :: style}"></div>
     <link th:href="@{/css/loginstyle.css}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <!--A estilização dessa página utilizou recursos do MDB/BOOTSTRAP -->
@@ -14,8 +14,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/>
     <link href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
     <link href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5" rel="stylesheet" id="roboto-subset.css-css" type="text/css" media="all">
-    
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"/>-->
 
   </head>
 
@@ -66,7 +64,7 @@
                         <div class="d-flex align-items-center justify-content-center pb-4">
                           <p class="mb-0 me-2">Ainda não tem uma conta?</p>
                           <button type="button" class="btn btn-outline-secondary">
-                            <a th:href="@{/clientes/form}" >Cadastrar-se</a>
+                            <a th:href="@{/clientes}">Cadastrar-se</a>
                           </button>
                         </div>
       

@@ -25,11 +25,11 @@
                     <input type="hidden" th:field="*{id}"/>
 
                     <label for="apelido">Login</label>
-                        <input class="form-styling" type="text" name="apelido" placeholder="" th:field="*{login}"/>
+                        <input class="form-styling" type="text" name="apelido" required placeholder="" th:field="*{login}"/>
                         <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}" class="alert alert-danger"/> 
                     
                     <label for="senha">Senha</label> 
-                        <input class="form-styling" type="password" name="senha" placeholder="" th:field="*{senha}"/> 
+                        <input class="form-styling" type="password" name="senha" required placeholder="" th:field="*{senha}"/> 
                         <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" class="alert alert-danger" />
                     
                     <label for="nome">Nome Completo</label> 

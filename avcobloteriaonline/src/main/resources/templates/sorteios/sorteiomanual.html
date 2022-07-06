@@ -30,7 +30,7 @@
 				<h1 class="display-3 text-center text-white pb-2">Realizar Sorteio</h1>
 				<p class="lead text-center">Selecione 6 números para realizar um sorteio</p>
 				<div class="form-check form-check-inline" th:each=" n : ${#numbers.sequence(1, 60)}">
-					<input type="checkbox" th:value="${n}" class="btn-check" th:id="${n}" th:name="checkboxes" autocomplete="off">
+					<input type="checkbox" th:value="${n}" class="btn-check" th:id="${n}" th:name="cbx" autocomplete="off">
 					<label class="btn btn-outline-success aposta-checkbox" th:attr="for=${n}" th:text="${n}"></label>
 				</div>
 
