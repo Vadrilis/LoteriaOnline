@@ -23,10 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/css/**", "/imagens/**",  "/acesso-negado", "/auth/**", "/clientes/form", "/fragments/**","/sorteio/**").permitAll() //TODO coloquei esse auth dps
-            .antMatchers("/sorteios/**").hasAnyRole("ADMIN", "CLIENTE")
+            .antMatchers("/css/**", "/imagens/**",  "/acesso-negado", "/auth/**", "/clientes", "/fragments/**","/sorteio/**").permitAll() //TODO coloquei esse auth dps
+            .antMatchers("/sorteios/").hasAnyRole("ADMIN", "CLIENTE")
             .antMatchers("/clientes/**").hasRole("ADMIN")
-            .antMatchers("/layout").hasAnyRole("ADMIN", "CLIENTE")
             .anyRequest()
             .authenticated()
             .and()
