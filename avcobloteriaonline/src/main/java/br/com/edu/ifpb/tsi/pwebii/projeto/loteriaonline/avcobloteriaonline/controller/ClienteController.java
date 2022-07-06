@@ -117,9 +117,10 @@ public class ClienteController {
 
     @RequestMapping("/sorteiosativosporusuario")
     public ModelAndView getSorteiosAtivosPorUsuaio(Principal auth, ModelAndView mav) {
-        mav.addObject("sorteiosativosporusuario", sorteioRepository.findByUserAndByestadoTrue(auth.getName()));
+        mav.addObject("sorteiosativosporusuario", sorteioRepository.findByUserAndByEstadoTrue(auth.getName()).get());
         mav.setViewName("clientes/telinhaclienteapostador");
         return mav;
     }
 
+    
 }

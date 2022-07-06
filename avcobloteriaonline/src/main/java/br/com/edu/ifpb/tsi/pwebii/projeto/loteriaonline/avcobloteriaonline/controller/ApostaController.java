@@ -38,12 +38,12 @@ public class ApostaController {
     @Autowired
     SorteioRepository sorteioRepository;
 
-    @RequestMapping("/form")
+    @RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getForm(Aposta aposta, ModelAndView mav, Principal auth) {
 		mav.addObject("apostaNv", new Aposta());
-		mav.addObject("apostasFavoritas", apostaRepository.findByClienteAndEhFavoritaTrue(auth.getName()));
+		mav.addObject("apostasFavoritas", apostaRepository.findByClienteAndEhFavoritaTrue(auth.getName()).get());
         mav.addObject("sorteioNv", new Sorteio());
-		mav.addObject("sorteiosAtivos", sorteioRepository.findByEstadoFalse());
+		mav.addObject("sorteiosAtivos", sorteioRepository.findByEstadoFalse());//ainda não realizados
 		mav.addObject("aposta", aposta);
 		mav.setViewName("/apostas/form");
 
@@ -92,7 +92,7 @@ public class ApostaController {
         }
          
         mav.setViewName("redirect:/apostas/form");
-        attrs.addFlashAttribute("mensagem", "Por favor, selecione no mínime 6 valores e no máximo 10");
+        attrs.addFlashAttribute("mensagem", "Por favor, digite no mínimo 6 valores e no máximo 10");
         return mav;
 		
 	}

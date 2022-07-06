@@ -39,19 +39,18 @@ public class SorteioController {
 
     @Autowired
     ClienteRepository clienteRepository;
-
     
     @RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getForm(Sorteio sorteio, ModelAndView mav) {
 		mav.addObject("sorteio", sorteio);
-		mav.setViewName("/sorteios/formSorteio");
+		mav.setViewName("/sorteios/form");
 		return mav;
 	}
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(@Valid Sorteio sorteio, BindingResult validation, ModelAndView mav, RedirectAttributes attrs) {
         if (validation.hasErrors()) {
-            mav.setViewName("/sorteios/formSorteio");
+            mav.setViewName("/sorteios/form");
         }
 
         if (!sorteioRepository.findAll().isEmpty()) {
