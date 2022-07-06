@@ -19,10 +19,14 @@
 						<a sec:authorize="hasAnyRole('CLIENTE')" th:classappend="${menu == 'apostas'} ? 'active'" class="nav-item nav-link" th:href="@{/apostas}">
 							Cadastrar Aposta
 						</a>
+						<a sec:authorize="hasAnyRole('CLIENTE')" th:classappend="${menu == 'apostas'} ? 'active'" class="nav-item nav-link" th:href="@{/apostas/minhasapostas}">
+							Minhas Apostas
+						</a>
+
 						<a sec:authorize="hasAnyRole('ADMIN')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios}">
 							Cadastrar Sorteio
 						</a>
-						<a sec:authorize="hasAnyRole('CLIENTE')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios/sorteioaberto}">
+						<a sec:authorize="hasAnyRole('CLIENTE','ADMIN')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios/sorteioaberto}">
 							Sorteios
 						</a>
 					

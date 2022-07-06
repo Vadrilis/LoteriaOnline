@@ -13,10 +13,10 @@
 
 </header>
 <body>
-	<!-- <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
-		<span th:text="${sucesso}"></span>
+	<div th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
+		<span th:text="${mensagem}"></span>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div> -->
+	</div>
 	<div class="container text-center mt-4">
 		<h1 class="pb-2">Sorteios Abertos</h1>
 		<div class="d-flex flex-grow-1 flex-wrap justify-content-evenly text-center px-3 py-2 gap-3">
@@ -24,20 +24,22 @@
 			<div th:each="s : ${sorteiosAbertos}" class="card text-black bg-purple-300 mb-3" style="min-width: 18rem;">
 				<div class="card-header">[[${s.id}]]</div>
 				<div class="card-body">
+					<h5 th:inline="text" class="card-text">
+						Data e Hora de realização: [[${#temporals.format(s.dataHoraSorteio, 'dd/MM/yyyy HH:mm')}]]
+					</h5>
 					<h5 th:inline="text" class="card-title">
 						Premio: R$ [[${#numbers.formatDecimal(s.valorPremio, 0, 'POINT', 2, 'COMMA')}]]
 					</h5>
 					<h5 th:inline="text" class="card-text">
 						Quant. de Apostas Realizadas: [[${s.apostasRealizadas.size()}]]
 					</h5>
-					<h5 th:inline="text" class="card-text">
-						Data e Hora de realização: [[${#temporals.format(s.dataHoraSorteio, 'dd/MM/yyyy HH:mm')}]]
+					<h5 th:text="${s.estado} ? 'Status: Já sorteado': 'Status: Aberto' "></h5>
 					</h5>
 					
 				</div>
 
-				<div sec:authorize="hasAnyRole('ADMIN')" method="get" class="card-footer border-purple-400">
-					<button th:href="@{/sorteios/sorteando/{id}(id=${s.id})}" type="button" class="btn btn-sm bg-purple-300 border-purple-400">Sortear</button>
+				<div sec:authorize="hasAnyRole('ADMIN')" class="card-footer border-purple-400">
+					<a th:href="@{/sorteios/sorteando/{id}(id=${s.id})}" type="button" class="btn btn-sm bg-purple-300 border-purple-400">Sortear</a>
 				</div>
 			</div>
 

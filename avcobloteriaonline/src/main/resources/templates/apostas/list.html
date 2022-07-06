@@ -36,7 +36,7 @@
 
 				<div class="container bg-purple-400 border rounded-4 border-1 border-purple-500 p-3 mt-3 mb-3">
 					<div class="container mt-1 text-center">
-						<h1 class="text-white pb-2">Meus Sorteios</h1>
+						<h1 class="text-white pb-2">Sorteios Ativos</h1>
 					</div>
 
 					<!-- ACCORDION -->
@@ -80,6 +80,60 @@
 						
 					</div>
 				</div>
+
+				<div class="container bg-purple-400 border rounded-4 border-1 border-purple-500 p-3 mt-3 mb-3">
+					<div class="container mt-1 text-center">
+						<h1 class="text-white pb-2">Sorteios Realizados</h1>
+					</div>
+
+					<!-- ACCORDION -->
+					<div class="accordion accordion-flush text-center" id="accordionFlush">
+						<!-- ACCORDION ITEM -->
+						<div th:each="sr : ${meusSorteiosRealizados}" class="accordion-item bg-purple-700">
+							<h2 class="accordion-header bg-purple-600" id="accordion-heading-1">
+							<button class="accordion-button bg-purple-600 text-white collapsed" type="button" 
+								data-bs-toggle="collapse" 
+								data-bs-target="#flush-collapse-1" 
+								aria-expanded="false" 
+								aria-controls="flush-collapse-1">
+								<h5>
+									Sorteio [[${sr.id}]]
+								</h5>
+							</button>
+							</h2>
+							<div id="flush-collapse-1" class="accordion-collapse collapse" 
+								aria-labelledby="flush-collapse-1" 
+								data-bs-parent="#accordionFlush">
+							<div class="accordion-body bg-purple-500 text-white">
+								<div class="row">
+									<div class="col-6">
+										Números Sort:
+									</div>
+									<div class="col-6">
+										[[${sr.dezenasSorteadas}]]
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										Prêmio:
+									</div>
+									<div class="col-6">
+										R$ [[${sr.valorPremio}]]
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+
+
+
+
+
+
 				
 
 			</div>
@@ -87,7 +141,7 @@
 				<div class="container bg-purple-400 border rounded-4 border-1 border-purple-500 p-3 mt-3 mb-3">
 					<!-- CARD SORT -->
 					<div class="container mt-4 text-center">
-						<h1 class="text-white pb-2">Minhas Apostas</h1>
+						<h1 class="text-white pb-2">Apostas Favoritas</h1>
 						<div class="d-flex flex-grow-1 flex-wrap justify-content-evenly text-center px-3 py-2 gap-3">
 
 							<div th:each="ma : ${minhasApostas}" class="card text-white bg-dark mb-3" style="min-width: 24rem;">

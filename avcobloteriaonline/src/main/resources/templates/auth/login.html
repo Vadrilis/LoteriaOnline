@@ -20,7 +20,7 @@
 <body>
     <section class="h-100 gradient-form" style="background-color: #eee;">
       <div th:if="${not #strings.isEmpty(mensagem)}"
-      th:utext="${mensagem} +'<button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;><span aria-hidden=&quot;true&quot;>&times;</span></button>'"
+      th:utext="${mensagem}"
       class="alert alert-danger alert-dismissible fade show alertinha" role="alert">
       </div>
         <div class="container py-5 h-100">
