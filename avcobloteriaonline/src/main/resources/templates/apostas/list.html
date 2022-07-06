@@ -21,33 +21,35 @@
 				<div class="container bg-purple-400 border rounded-4 border-1 border-purple-500 p-3 mt-3 mb-3">
 
 					<!-- CARD -->
-					<div class="card bg-teal-500 border border-teal-600 border-3">
+					<div th:each="eu : ${esseUser}" class="card bg-teal-500 border border-teal-600 border-3">
 						<h5 class="card-header"><i class="bi bi-wallet2"></i> Carteira</h5>
 						<div class="card-body border-1 border-bottom border-teal-600">
-							<h5 class="card-title"><i class="bi bi-currency-dollar"></i> 100,00</h5>
+							<h5 class="card-title">
+								<i class="bi bi-currency-dollar"></i>[[${eu.ganhos}]]</h5>
 						</div>
 						<div class="card-body bg-red-200">
-							<h5 class="card-title"><i class="bi bi-currency-dollar"></i> 100,00</h5>
+							<h5 class="card-title">
+								<i class="bi bi-currency-dollar"></i>[[${eu.despesas}]]</h5>
 						</div>
 					</div>
 				</div>
 
 				<div class="container bg-purple-400 border rounded-4 border-1 border-purple-500 p-3 mt-3 mb-3">
-					
-					<!-- ACCORDION -->
-					<div class="accordion accordion-flush" id="accordionFlush">
+					<h1 class="text-white pb-2">Meus Sorteios</h1>
 
+					<!-- ACCORDION -->
+					<div class="accordion accordion-flush text-center" id="accordionFlush">
 						<!-- ACCORDION ITEM -->
-						<div class="accordion-item bg-purple-700">
+						<div th:each="ms : ${meusSorteiosAtivos}" class="accordion-item bg-purple-700">
 							<h2 class="accordion-header bg-purple-600" id="accordion-heading-1">
 							<button class="accordion-button bg-purple-600 text-white collapsed" type="button" 
 								data-bs-toggle="collapse" 
 								data-bs-target="#flush-collapse-1" 
 								aria-expanded="false" 
 								aria-controls="flush-collapse-1">
-								<p class="fs-6">
-									Aposta 1
-								</p>
+								<h5>
+									Sorteio [[${ms.id}]]
+								</h5>
 							</button>
 							</h2>
 							<div id="flush-collapse-1" class="accordion-collapse collapse" 
@@ -56,12 +58,18 @@
 							<div class="accordion-body bg-purple-500 text-white">
 								<div class="row">
 									<div class="col-6">
-										Números Sort.:
+										Números Sort:
+									</div>
+									<div class="col-6">
+										[[${ms.dezenasSorteadas}]]
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-6">
-										Números Selec.:
+										Prêmio:
+									</div>
+									<div class="col-6">
+										R$ [[${ms.valorPremio}]]
 									</div>
 								</div>
 							</div>
@@ -80,34 +88,39 @@
 						<h1 class="text-white pb-2">Minhas Apostas</h1>
 						<div class="d-flex flex-grow-1 flex-wrap justify-content-evenly text-center px-3 py-2 gap-3">
 
-							<div th:each="a : ${minhasApostas}" class="card text-white bg-dark mb-3" style="min-width: 18rem;">
-								<div class="card-header">1</div>
-								<div class="card-body">
-
-									<h5 class="card-title">Apostas</h5>
-									<p class="card-text"><i class="bi bi-currency-dollar">Valor da aposta</i></p>
-									<p class="card-text"><i class="bi bi-currency-dollar">Numeros Escolhidos</i></p>
+							<div th:each="ma : ${minhasApostas}" class="card text-white bg-dark mb-3" style="min-width: 24rem;">
+								<div class="card-header">
 								</div>
-								<hr>
-								<div >
-									<h5 th:inline="text" class="card-title">
-										Sorteio: [[${a.sorteio.id}]]
+								<div class="card-body">
+									<h5 class="card-title">
+										Aposta [[${ma.id}]]
 									</h5>
-									<p th:inline="text" class="card-text">
-										Números selecionados: [[${#strings.listJoin(a.numeros, ', ')}]] <br>
-										Números do sorteio: [[${#strings.listJoin(a.sorteio.dezenasSorteadas, ', ')}]]
-									</p>
+									<div class="row card-text ">
+										<div class="col border shadow-sm rounded m-1">
+											Números Sel:
+										</div>
+										<div class="col border shadow-sm rounded m-1">
+											[[${#strings.listJoin(ma.numeros, ', ')}]]
+										</div>
+									</div>
+									<div class="row card-text">
+										<div class="col border shadow-sm rounded m-1">
+											Valor Aposta:
+										</div>
+										<div class="col border shadow-sm rounded m-1">
+											<i class="bi bi-currency-dollar"></i> [[${ma.preco}]]
+										</div>
+									</div>
+									<div class="card-footer">
+										<small class="text-white">Sorteio [[${ma.sorteio.id}]]</small>
+									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 </body>
 </html>

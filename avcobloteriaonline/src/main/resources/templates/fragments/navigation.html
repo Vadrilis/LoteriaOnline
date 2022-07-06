@@ -17,11 +17,15 @@
 					<div class="navbar-nav">
 						<a th:classappend="${menu == 'home'} ? 'active'" class="nav-link" th:href="@{/home}">Home</a>
 						<a sec:authorize="hasAnyRole('CLIENTE')" th:classappend="${menu == 'apostas'} ? 'active'" class="nav-item nav-link" th:href="@{/apostas}">
-							Apostas
+							Cadastrar Aposta
 						</a>
-						<a sec:authorize="hasAnyRole('CLIENTE', 'ADMIN')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios}">
+						<a sec:authorize="hasAnyRole('ADMIN')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios}">
+							Cadastrar Sorteio
+						</a>
+						<a sec:authorize="hasAnyRole('CLIENTE')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios/sorteioaberto}">
 							Sorteios
 						</a>
+					
 					</div>
 				</div>
 				<div class="mr-3">
