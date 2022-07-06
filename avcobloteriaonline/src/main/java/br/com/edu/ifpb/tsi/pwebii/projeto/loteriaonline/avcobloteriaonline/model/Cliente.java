@@ -65,12 +65,9 @@ public class Cliente implements Serializable {
     private List<Aposta> apostas = new ArrayList<Aposta>();
 
     @Transient
-    @NotBlank(message = "Apelido é obrigatório!")
     private String login;
     
     @Transient
-    @NotBlank(message = "Senha é obrigatório!")
-    @Size(min = 3, message = "É necessário que tenha no mínimo 3 caracteres")
     private String senha;
 
     @OneToOne

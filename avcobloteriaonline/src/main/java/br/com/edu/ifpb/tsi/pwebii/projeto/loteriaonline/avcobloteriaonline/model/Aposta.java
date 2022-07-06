@@ -43,7 +43,7 @@ public class Aposta  implements Serializable{
     private Integer qtdDezenas;*/
 
     @ElementCollection(fetch = FetchType.LAZY)
-    private Set<Integer> numeros = new HashSet<Integer>();;
+    private Set<Integer> numeros = new HashSet<Integer>();
 
     @NumberFormat(pattern = "###,###,##0.00")
     private BigDecimal preco = BigDecimal.ZERO;
@@ -51,6 +51,7 @@ public class Aposta  implements Serializable{
     private boolean ehFavorita = false;
 
     @ManyToOne
+    @JoinColumn(name = "idsorteio")
     private Sorteio sorteio;
 
     @Transient
