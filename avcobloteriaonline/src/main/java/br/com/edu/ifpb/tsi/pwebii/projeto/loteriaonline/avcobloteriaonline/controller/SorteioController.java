@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 // import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,37 +52,37 @@ public class SorteioController {
     public ModelAndView save(@Valid Sorteio sorteio, BindingResult validation, ModelAndView mav, RedirectAttributes attrs) {
         if (validation.hasErrors()) {
             mav.setViewName("/sorteios/form");
-        }
-
-        if (!sorteioRepository.findAll().isEmpty()) {
-
-            DateTimeFormatter formatador1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            LocalDateTime novoSorteio = sorteio.getDataHoraSorteio();
-            LocalDateTime ultimoSorteio = sorteioRepository.findTopByOrderByDataHoraSorteioDesc().getDataHoraSorteio();
-            
-            Duration duracao = Duration.between(novoSorteio,ultimoSorteio);
-            long dias = duracao.toDays();
-    
-            if (!(novoSorteio.isAfter(ultimoSorteio))){
-                mav.setViewName("redirect:/sorteios");
-                attrs.addFlashAttribute("mensagem", String.format("É necessário que seja posterior ao último sorteio: %s", ultimoSorteio.format(formatador1).toString()));
-                
-                if(!(Math.abs(dias) >= 7)){
-                    attrs.addFlashAttribute("mensagem", String.format("É necessário que haja pelo menos 1 semana entre este sorteio e o último %s", ultimoSorteio.format(formatador1).toString()));
-                }
-
-            } else{
+        } else {
+            List<Sorteio> controle = sorteioRepository.findAll();  
+            if (controle.isEmpty()){
                 sorteioRepository.save(sorteio);
                 mav.setViewName("redirect:/sorteios/sorteioaberto");
                 attrs.addFlashAttribute("mensagem", "Sorteio cadastrado com sucesso!");
+            } else {
+
+                DateTimeFormatter formatador1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                LocalDateTime novoSorteio = sorteio.getDataHoraSorteio();
+                LocalDateTime ultimoSorteio = sorteioRepository.findTopByOrderByDataHoraSorteioDesc().getDataHoraSorteio();
+                
+
+                Duration duracao = Duration.between(novoSorteio,ultimoSorteio);
+                long dias = duracao.toDays();
+        
+                if (!(novoSorteio.isAfter(ultimoSorteio))){
+                    mav.setViewName("redirect:/sorteios");
+                    attrs.addFlashAttribute("mensagem", String.format("É necessário que seja posterior ao último sorteio: %s", ultimoSorteio.format(formatador1).toString()));
+                    
+                } else if(!(Math.abs(dias) >= 7)){
+                    mav.setViewName("redirect:/sorteios");
+                    attrs.addFlashAttribute("mensagem", String.format("É necessário que haja pelo menos 1 semana entre este sorteio e o último %s", ultimoSorteio.format(formatador1).toString()));
+                } else{
+                    sorteioRepository.save(sorteio);
+                    mav.setViewName("redirect:/sorteios/sorteioaberto");
+                    attrs.addFlashAttribute("mensagem", "Sorteio cadastrado com sucesso!");
+                }
             }
-
-        } else {
-            sorteioRepository.save(sorteio);
-            mav.setViewName("redirect:/sorteios/sorteioaberto");
-            attrs.addFlashAttribute("mensagem", "Sorteio cadastrado com sucesso!");
         }
-
+        
         return mav;
     }
 
@@ -104,7 +105,7 @@ public class SorteioController {
 	@RequestMapping(value = "/sorteando/{id}", method = RequestMethod.GET)
 	public ModelAndView sortearManualmente(ModelAndView mav, @PathVariable("id") Integer id) {
 		mav.addObject("sorteio", sorteioRepository.findById(id));
-		mav.setViewName("/sorteios/sorteia");
+		mav.setViewName("/sorteios/sorteiomanual");
 
 		return mav;
 	}
