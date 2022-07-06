@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="~{fragments/bootstrap.html :: style}"></div>
+    <link th:href="@{/css/precosstyle.css}" rel="stylesheet">
+    <title>Vadrilis da Sorte - Home</title>
+</head>
+<body>
+    <div>
+        <div th:insert="~{fragments/navigation.html :: menu}"></div>
+        <div style="background: linear-gradient(to right, #c088f5, #9762d7, #aa4dd6, #760fd7); color:white">
+            <p style="font-style:italic; text-align: center;">Este é o Vadrilis da Sorte, o site ideal para você realizar apostas e concorrer a grandes prêmios.</p>
+            <div class="d-flex align-items-center gradient-custom-2 justify-content-center">
+                <div class="p-md-1 mx-md-2">
+                    <img id="lottoimage" th:src="@{/imagens/vadrilisdasorte-logo-nobgcuted.png}">
+                </div>
+            </div>
+        </div>
+        
+        <div class="m-5" th:insert="~{fragments/precos.html :: tabeladeprecos} "></div>
+        <div class="m-5" th:insert="~{fragments/footerfgt.html :: foot}"></div>
+    </div>
+</body>
+
+</html>

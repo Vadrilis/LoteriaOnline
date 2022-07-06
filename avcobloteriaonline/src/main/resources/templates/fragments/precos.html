@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="~{fragments/bootstrap.html :: style}"></div>
+    <link th:href="@{/css/precosstyle.css}" rel="stylesheet">
+</head>
+<body>
+    <div th:fragment="tabeladeprecos">
+        <div class="d-flex justify-content-center">
+            <div class = "div-tabela-precos justify-content-center justify-items-center" style="width:50%;">
+                <table class="table table-striped">
+                    <thead> 
+                    <tr class="bg-purple-300">
+                        <th class="bg-purple-300" scope="col">QUANTIDADE DE DEZENAS</th>
+                        <th class="bg-purple-300" scope="col">PREÇO</th>
+                    </tr>
+                    </thead>
+                    <tbody id="precoAposta">
+                    <tr th:each="precoAposta : ${T(br.com.edu.ifpb.tsi.pwebii.projeto.loteriaonline.avcobloteriaonline.model.PrecoAposta).values()}">
+                        <th scope="row" th:text="${precoAposta.qtdDezenas}"></th>
+                        <td th:inline="text">R$ [[${#numbers.formatDecimal(precoAposta.preco, 0, 'POINT', 2, 'COMMA')}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

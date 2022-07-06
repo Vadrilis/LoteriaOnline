@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="~{fragments/bootstrap.html :: style}"></div>
+    <link rel="stylesheet" th:href="@{/css/colors.css}" />
+    <title>Cadastro de Sorteio</title>
+</head>
+<body>
+    <div th:insert="~{fragments/navigation.html :: menu}"></div>
+
+    <div th:if="${mensagem}" class="alert alert-danger alert-dismissible fade show" role="alert">
+		<span th:inline="text">
+			[[${mensagem}]]
+		</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <form th:action="@{/sorteios}" method="post" th:object="${sorteio}">
+            <input type="hidden" th:field="*{id}">
+
+            <h1 class="text-center pb-5">Cadastrar Sorteio</h1>
+
+            <div class="bg-purple-300 p-3 border border-purple-500 rounded-lg" style="box-shadow: 0 5px 10px rgb(0 0 0 / 10%);">
+                <div class="text-center" style="min-width: 30rem;">
+
+                    <div class="w-50 mx-auto mb-1">
+                        <label for="dataHoraSorteio" class="form-label">DATA E HORA DO SORTEIO</label>
+                        <input class="form-control" type="datetime-local" name="datazinha" placeholder="" th:field="*{dataHoraSorteio}"/>  <br>
+                        <p th:if="${#fields.hasErrors('dataHoraSorteio')}" th:errorclass="error" th:errors="*{dataHoraSorteio}" class="alert alert-danger alertinha"></p>
+                    </div>
+
+                    <div class="w-50 mx-auto md-1">
+                        <label for="valorPremio" class="form-label">PREMIO</label>
+                        <div class="input-group mb-3">
+                            <input th:field="*{valorPremio}" type="number" class="form-control" aria-label="R$">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn bg-purple-400 border-purple-500 text-white">Cadastrar sorteio</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="mb-5"></div>
+    <div th:insert="~{fragments/footerfgt.html :: foot}"></div>
+</body>
+</html>

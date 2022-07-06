@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="www.thymeleaf.org">
+<head>
+
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+	<title>Vadrilis da Sorte - Apostas</title>
+</head>
+<header>
+	<div th:replace="~{fragments/navigation.html :: menu}"></div>
+</header>
+<body class="bg-dark text-white">
+	<div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+		<span th:text="${sucesso}"></span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	<div class="container mt-4 text-center">
+
+		<h1 class="display-3 text-white pb-2">Minhas Apostas</h1>
+		<div class="d-flex flex-grow-1 flex-wrap justify-content-evenly text-center px-3 py-2 gap-3">
+			<div th:each="a : ${minhasApostas}" class="card border border-success rounded-pill border-3 h-100 my-2 flex-grow-1 bg-success bg-gradient ">
+				<div class="card-body text-white border-secondary">
+					<h5 th:inline="text" class="card-title">
+						Sorteio: [[${a.sorteio.id}]]
+					</h5>
+					<p th:inline="text" class="card-text">
+						Meus números selecionados: [[${#strings.listJoin(a.numeros, ', ')}]] <br>
+						Números do sorteio: [[${#strings.listJoin(a.sorteio.dezenasSorteados, ', ')}]]
+					</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+	<!-- <div class="fixed-bottom">
+		<div th:replace="~{fragments/footer.html :: footer}"></div>
+	</div> -->
+
+</body>
+</html>

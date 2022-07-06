@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="pt_BR">
+	<meta http-equiv="Content-Type" content="text/html" />
+	<div th:replace="~{fragments/bootstrap.html :: style}"></div>
+	<link th:href="@{/css/colors.css}" rel="stylesheet" />
+</head>
+<body>
+	<div th:fragment="menu">
+		<nav class="navbar navbar-expand-lg navbar-light bg-purple-300" style="box-shadow: 0 5px 10px rgb(0 0 0 / 10%);">
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{/home}">Vadrilis da Sorte</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a th:classappend="${menu == 'home'} ? 'active'" class="nav-link" th:href="@{/home}">Home</a>
+						<a sec:authorize="hasAnyRole('CLIENTE')" th:classappend="${menu == 'apostas'} ? 'active'" class="nav-item nav-link" th:href="@{/apostas}">
+							Apostas
+						</a>
+						<a sec:authorize="hasAnyRole('CLIENTE', 'ADMIN')" th:classappend="${menu == 'sorteios'} ? 'active'" class="nav-item nav-link" th:href="@{/sorteios}">
+							Sorteios
+						</a>
+					</div>
+				</div>
+				<div class="mr-3">
+					<span sec:authorize="isAuthenticated()" sec:authentication="name" style="margin-right: 3px; font-size: 0.8em;"></span>
+						<a href="#" onclick="document.querySelector('#form-logout').submit()" class="btn btn-outline-dark my-2 my-sm-0">Sair</a>
+					<form id="form-logout" th:action="@{/auth/logout}" method="POST"></form>
+				</div>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+		lang="en"
+		xmlns="www.thymeleaf.org"
+>
+<head>
+	<div th:replace="~{fragments/bootstrap.html :: header}"></div>
+	<div th:replace="~{fragments/bootstrap.html :: style}"></div>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
+	<title>Realizar Sorteio</title>
+</head>
+<header sec:authorize="isAuthenticated()">
+	<div th:replace="~{fragments/navbar.html :: navbar}"></div>
+</header>
+<body class="bg-dark text-white">
+	<div th:if="${alerta}" class="alert alert-danger alert-dismissible fade show" role="alert">
+		<span th:inline="text">
+			[[${alerta}]]
+		</span>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	<div class="container text-center mt-4">
+		<div class="d-flex justify-content-center">
+
+			<form th:action="@{/sorteios/realizar/{id}(id=${sorteio.id})}" method="post" th:object="${sorteio}">
+				<input type="hidden" th:field="*{id}">
+
+
+				<h1 class="display-3 text-center text-white pb-2">Realizar Sorteio</h1>
+				<p class="lead text-center">Selecione 6 números para realizar um sorteio</p>
+				<div class="form-check form-check-inline" th:each=" n : ${#numbers.sequence(1, 60)}">
+					<input type="checkbox" th:value="${n}" class="btn-check" th:id="${n}" th:name="checkboxes" autocomplete="off">
+					<label class="btn btn-outline-success aposta-checkbox" th:attr="for=${n}" th:text="${n}"></label>
+				</div>
+
+                <button type="submit" class="btn btn-success">Realizar Sorteio</button>
+
+			</form>
+		</div>
+	</div>
+</body>
+</html>

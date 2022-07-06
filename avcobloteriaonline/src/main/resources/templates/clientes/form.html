@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="pt_BR">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<div th:replace="~{fragments/bootstrap.html :: style}"></div>
+
+    <link th:href="@{/css/cadastrostyle.css}" rel="stylesheet">
+
+    <title>Vadrilis da Sorte - Cadastro</title>
+</head>
+<body>
+    <div class="container">
+        <div class="frame">
+            <div class="nav">
+                <ul class="links">
+                    <li class="signin-active">
+                        <a class="btn">Cadastro</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <form class="form-signin" name="form" th:action="@{/clientes}" method="post" th:object="${cliente}"> 
+                    <input type="hidden" th:field="*{id}"/>
+
+                    <label for="apelido">Login</label>
+                        <input class="form-styling" type="text" name="apelido" placeholder="" th:field="*{login}"/>
+                        <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}" class="alert alert-danger"/> 
+                    
+                    <label for="senha">Senha</label> 
+                        <input class="form-styling" type="password" name="senha" placeholder="" th:field="*{senha}"/> 
+                        <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" class="alert alert-danger" />
+                    
+                    <label for="nome">Nome Completo</label> 
+                        <input class="form-styling" type="text" name="nome" placeholder="" th:field="*{nome}"/>
+                        <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger" />
+                    
+                    <label for="dtnascimento">Data de Nascimento</label> 
+                        <input class="form-styling" type="date" name="datazinha" required placeholder="" th:field="*{dataNascimento}"/> 
+                        <p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="error" th:errors="*{dataNascimento}" class="alert alert-danger" />
+                    
+                    <label for="cpf">CPF</label> 
+                        <input class="form-styling" type="text" name="cpf" placeholder="12345678901"  th:field="*{cpf}"  /> 
+                        <p th:if="${#fields.hasErrors('cpf')}" th:errorclass="error" th:errors="*{cpf}" class="alert alert-danger" />
+                    
+                    <input type="checkbox" id="checkbox" th:checked="${controlador}" th:name="controlads"/>
+                    <label for="checkbox">
+                        <span class="ui"></span>Controlador?
+                    </label>
+                   
+                   
+                    <div class="btn-animate" > 
+                        <!--<a type="submit" class="btn-signin">Cadastrar</a>-->
+                        <input type="submit" class="btn-signin" value="Cadastrar"></input>
+                    </div>
+                    <div class="forgot">
+                        <a th:href="@{/auth}">Já tem uma conta? Faça login!</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>
