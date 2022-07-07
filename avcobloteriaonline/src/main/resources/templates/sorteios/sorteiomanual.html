@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html
-		lang="en"
-		xmlns="www.thymeleaf.org"
->
+<html lang="en" xmlns="www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
-	<title>Realizar Sorteio</title>
+	<div th:replace="~{fragments/bootstrap.html :: style}"></div>
+	<title>Vadrilis da Sorte - Sortear</title>
 </head>
 <header sec:authorize="isAuthenticated()">
-	<div th:replace="~{fragments/navigation.html :: menu}"></div>
+	<div th:insert="~{fragments/navigation.html :: menu}"></div>
 </header>
-<body class="bg-dark text-white">
+<body class="bg-light text-white">
 	<div th:if="${mensagem}" class="alert alert-danger alert-dismissible fade show" role="alert">
 		<span th:inline="text">
 			[[${mensagem}]]
@@ -19,33 +17,40 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 	
+	<div class="d-flex justify-content-center">
+		<div class="card text-center" style="width: 35%;">
+			<div class="card-header text-black">
+				Sortear
+			</div>
+			<div class="card-body">
+			<h5 class="card-title text-black">Realização do Sorteio</h5>
+			<p class="card-text text-black">Para efetuar um sorteio basta clicar no botão abaixo ou escolher 6 números da cartela</p>
+			<form class="card shadow bg-purple-400" th:action="@{/sorteios/sorteando/{id}(id=${sorteio.id})}" method="post" th:object="${sorteio}">
+					<input type="hidden" th:field="*{id}" class="text-black">
+					<p></p>
 
-
-	<div class="row">
-		<div class="col-12">
-			<!-- Inicio do Card -->
-			<form class="card shadow mb-4 card-novaaposta mx-auto" th:action="@{/sorteios/sorteando/{id}(id=${sorteio.id})}" method="post" th:object="${sorteio}">
-					<input type="hidden" th:field="*{id}">
-		
-					<h1 class="display-3 text-center text-white pb-2">Realizar Sorteio</h1>
-					<p class="lead text-center">Selecione 6 números para realizar um sorteio</p>
-		
-					<div class="container pb-3">
-						<div class="form-check py-2 px-1 form-check-inline" th:each=" n : ${#numbers.sequence(1, 60)}">
-							<input type="checkbox" th:value="${n}" class="btn-check" th:id="${n}" th:name="checkboxes" autocomplete="off">
-							<label class="btn btn-outline-success aposta-checkbox" th:attr="for=${n}" th:inline="text">[[${n}]]</label>
+					<div>
+						<div>
+							<div class="form-check-inline" th:each=" n : ${#numbers.sequence(1, 60)}">
+								<input type="checkbox" th:value="${n}" class="btn-check" th:id="${n}" th:name="cbx">
+								<label style="width: 2.9em; height: 2.9em; border-radius: 50%;vertical-align: middle;" class="btn bg-pink-200" th:attr="for=${n}" th:inline="text">[[${n}]]</label>
+							</div>
 						</div>
 					</div>
-						
-					<button type="submit" class="btn btn-success">Realizar Sorteio</button>
+
+					<p></p>
+					<button type="submit" class="btn bg-pink-200 border-pink-200 text-center" style="width:30%">Sortear</button>
 				</form>				
-			</form>
-			<!-- / Fim do Card-->
+
+			</div>
+			<div class="card-footer text-muted">
+			VADRILIS DA SORTE CORPORATION
+			</div>
 		</div>
 	</div>
 
-
-
-
+	<div class="text-center">
+		<img th:src="@{/imagens/lotto-withbgedited.gif}" alt="Logo do VadrilisDaSorte">
+	</div>
 </body>
 </html>
