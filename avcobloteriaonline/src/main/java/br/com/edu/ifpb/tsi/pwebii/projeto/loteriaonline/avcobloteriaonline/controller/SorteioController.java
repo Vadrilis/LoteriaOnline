@@ -148,7 +148,7 @@ public class SorteioController {
 
             clienteRepository.saveAll(sorteio.listaVencedores()); //update dos clientes p receberem os valores
 
-            mav.setViewName("redirect:/sorteios/sorteio");
+            mav.setViewName("redirect:/sorteios/sorteioaberto");
             attrs.addFlashAttribute("mensagem", "Sorteio realizado com sucesso!");
         }
 		return mav;
